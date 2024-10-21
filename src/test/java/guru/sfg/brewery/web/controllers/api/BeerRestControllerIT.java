@@ -82,6 +82,38 @@ class BeerRestControllerIT {
     }
 
     @Test
+    void getBeerByIdWithUser() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/beer/6ad88cfb-9fa1-4118-ae05-57cb82bf9ca3")
+                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("user", "password")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void getBeerByIdWithScott() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/beer/6ad88cfb-9fa1-4118-ae05-57cb82bf9ca3")
+                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("scott", "tiger")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void getBeerByIdWithJohn() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/beer/6ad88cfb-9fa1-4118-ae05-57cb82bf9ca3")
+                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("John", "Doe")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void getBeerByIdWithJane() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/beer/6ad88cfb-9fa1-4118-ae05-57cb82bf9ca3")
+                        .with(SecurityMockMvcRequestPostProcessors.httpBasic("Jane", "Smith")))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
     void listBeersWithoutMockUser() throws Exception {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/beer"))
